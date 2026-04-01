@@ -1,0 +1,25 @@
+[project]
+name = "org-id"
+version = "0.1.0"
+description = "Create, validate, parse, and search org-id identifiers."
+readme = "README.md"
+authors = [
+    { name = "Nicu Calcea" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+org-id-refresh = "org_id.refresh:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.17,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
