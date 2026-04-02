@@ -1,6 +1,6 @@
 # org-id
 
-`org-id` is a small Python package for working with `org-id.guide` organization identifiers.
+`org-id` is a small Python package for working with [`org-id.guide`](https://org-id.guide) organisation identifiers.
 
 It supports:
 
@@ -13,7 +13,7 @@ It supports:
 ## Install
 
 ```bash
-uv sync
+uv pip install org-id
 ```
 
 ## Usage
@@ -79,30 +79,3 @@ It will:
 - run the test suite
 - build the package with `uv build`
 - publish to PyPI when you push a tag like `v0.1.0`
-
-### GitHub and PyPI setup
-
-1. Create the package on PyPI by doing one manual upload first, or reserve the project name if needed.
-2. In PyPI, open the `org-id` project settings.
-3. Add a trusted publisher for this GitHub repository.
-4. Set the owner to your GitHub account or organization.
-5. Set the repository name to the repo that will host `org-id`.
-6. Set the workflow name to `publish.yml`.
-7. Set the environment name blank unless you later decide to gate publishing with a GitHub environment.
-8. Push this package to its own GitHub repository.
-9. Create a version tag that matches `pyproject.toml`, for example `v0.1.0`.
-10. Push the tag with `git push origin v0.1.0`.
-
-### Recommended release flow
-
-1. Update `version` in `pyproject.toml`.
-2. Commit the change.
-3. Create and push a matching git tag, such as `v0.1.1`.
-4. Watch the `Publish` workflow in GitHub Actions.
-5. Confirm the new release on PyPI.
-
-### Notes
-
-- The workflow uses PyPI trusted publishing via GitHub OIDC, so no `PYPI_API_TOKEN` secret is required.
-- If the package name is not yet available on PyPI, verify that `org-id` can be claimed before wiring up automated publishing.
-- The publish step only runs after tests pass.

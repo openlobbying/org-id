@@ -1,5 +1,11 @@
 name: Publish
 
+# 1. Update `version` in `pyproject.toml`.
+# 2. Commit the change.
+# 3. Create and push a matching git tag, such as `v0.1.1`.
+# 4. Watch the `Publish` workflow in GitHub Actions.
+# 5. Confirm the new release on PyPI.
+
 on:
   push:
     tags:
