@@ -63,3 +63,7 @@ def test_default_registry_loads_bundled_snapshot():
     entry = registry.get("GB-COH")
     assert entry is not None
     assert entry.code == "GB-COH"
+
+
+def test_default_registry_is_cached() -> None:
+    assert Registry.default() is Registry.default()

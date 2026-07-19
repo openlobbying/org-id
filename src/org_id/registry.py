@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
+from functools import cache
 from importlib.resources import files
 from pathlib import Path
 from typing import Any, Iterable
@@ -28,7 +29,10 @@ class Registry:
         self.source = source
 
     @classmethod
+    @cache
     def default(cls) -> "Registry":
+        # Parsing the bundled 1.3MB snapshot costs ~30ms; callers like
+        # build_org_id fall back to this per call, so load it once.
         resource = files("org_id").joinpath("data/download.json")
         with resource.open("r", encoding="utf-8") as fh:
             data = json.load(fh)
