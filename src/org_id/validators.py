@@ -38,7 +38,12 @@ def normalize_gb_coh(company_number: Any) -> str | None:
     return None
 
 
-MD_IDNO_RE = re.compile(r"^\d{13}$")
+# Moldova's state identification numbers have 13 digits, and the first says what
+# is identified: IDNOs, for legal entities and individual entrepreneurs, start with
+# 1. Personal numbers (IDNPs) start with 0 or 2 and share the check digit, so
+# without this a person's IDNP, which some sources give in an IDNO field, would
+# pass as an IDNO.
+MD_IDNO_RE = re.compile(r"^1\d{12}$")
 # The 13th digit of a Moldovan IDNO is a check digit: the sum of the first 12
 # digits weighted 7, 3, 1, 7, 3, 1, ... modulo 10.
 MD_IDNO_WEIGHTS = (7, 3, 1) * 4

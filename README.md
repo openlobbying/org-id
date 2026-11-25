@@ -40,7 +40,8 @@ assert parsed.identifier == "16957965"
 Registration numbers are validated for some registers, and `make_org_id` returns `None` for an invalid one:
 
 - `GB-COH`: Companies House company numbers, zero-padded to 8 characters.
-- `MD-IDNO`: Moldovan IDNOs, 13 digits with a valid check digit.
+- `MD-IDNO`: Moldovan IDNOs, 13 digits starting with 1 and with a valid check digit.
+  Personal numbers (IDNPs) have the same format but start with 0 or 2, and are rejected.
 
 If a register is missing from the bundled `org-id.guide` list, creation still proceeds and emits a warning. Deprecated registers also continue with a warning.
 
