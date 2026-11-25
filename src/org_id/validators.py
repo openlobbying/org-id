@@ -38,8 +38,29 @@ def normalize_gb_coh(company_number: Any) -> str | None:
     return None
 
 
+MD_IDNO_RE = re.compile(r"^\d{13}$")
+# The 13th digit of a Moldovan IDNO is a check digit: the sum of the first 12
+# digits weighted 7, 3, 1, 7, 3, 1, ... modulo 10.
+MD_IDNO_WEIGHTS = (7, 3, 1) * 4
+
+
+def is_md_idno(idno: str) -> bool:
+    if not MD_IDNO_RE.match(idno):
+        return False
+    total = sum(int(digit) * weight for digit, weight in zip(idno, MD_IDNO_WEIGHTS))
+    return total % 10 == int(idno[12])
+
+
+def normalize_md_idno(idno: Any) -> str | None:
+    normalized = coerce_registration_number(idno)
+    if normalized is None or not is_md_idno(normalized):
+        return None
+    return normalized
+
+
 VALIDATORS = {
     "GB-COH": normalize_gb_coh,
+    "MD-IDNO": normalize_md_idno,
 }
 
 
