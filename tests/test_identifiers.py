@@ -110,6 +110,9 @@ def test_make_id_requires_register_when_reg_nr_is_given():
         "100360002500",  # 12 digits
         "213976",  # an old fiscal code, not an IDNO
         "100360002500X",
+        # Valid check digits, but personal numbers (IDNPs), which start with 0 or 2.
+        "2003600158029",
+        "0003600158025",
     ],
 )
 def test_make_org_id_rejects_invalid_md_idno(idno: str):
