@@ -101,3 +101,23 @@ def test_make_id_prefers_structured_identifier(registry: Registry):
 def test_make_id_requires_register_when_reg_nr_is_given():
     with pytest.raises(ValueError, match="requires a 'register'"):
         make_id("openlobbying", "Samizdata Ltd", reg_nr="16957965")
+
+
+@pytest.mark.parametrize(
+    "idno",
+    [
+        "1003600025000",  # 13 digits, wrong check digit
+        "100360002500",  # 12 digits
+        "213976",  # an old fiscal code, not an IDNO
+        "100360002500X",
+    ],
+)
+def test_make_org_id_rejects_invalid_md_idno(idno: str):
+    assert make_org_id(idno, register="MD-IDNO") is None
+
+
+def test_make_org_id_md_idno():
+    # Real IDNOs from the Moldovan State Register of Legal Units.
+    assert make_org_id("1003602023531", register="MD-IDNO") == "MD-IDNO-1003602023531"
+    assert make_org_id(" 1025620011345 ", register="MD-IDNO") == "MD-IDNO-1025620011345"
+    assert make_org_id(1025620011345, register="MD-IDNO") == "MD-IDNO-1025620011345"
